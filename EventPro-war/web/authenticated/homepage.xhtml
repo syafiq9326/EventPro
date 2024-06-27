@@ -1,0 +1,234 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                template="/layout/default.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                >
+
+
+
+    <ui:define name="content">
+
+        <f:metadata> 
+            <!--using authenticationManagedBean user Id to set the id of my personManagedBean-->
+            <!-- since same session authenticationManagedBean will not run, setPersonIdAuth will take in the id from authBean-->
+            <f:event type="preRenderView" listener="#{personManagedBean.setPersonIdAuth}" />
+            <!-- based off person id-->
+            <f:event type="preRenderView" listener="#{personManagedBean.loadSelectedPerson()}"/> 
+        </f:metadata> 
+
+
+        <html xmlns="http://www.w3.org/1999/xhtml"
+              xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+              xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+            <head>
+
+                <title>carousel slider</title>
+
+                <!-- favicon -->
+                <!-- <link href="img/favicon.png" type="image/png" rel="icon"> -->
+
+                <!-- all css here -->
+                <!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet" type="text/css" /> -->
+                <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" type="text/css" />
+                <link href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" rel="stylesheet" type="text/css" />
+                <link href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" rel="stylesheet" type="text/css" />
+                <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+
+                <style>
+                    .slideshow-title {
+                        font-family: 'Allerta Stencil';
+                        font-size: 62px;
+                        color: #fff;
+                        margin: 0 auto;
+                        text-align: center;
+                        margin-top: 25%;
+                        letter-spacing: 3px;
+                        font-weight: 300;
+                    }
+
+                    .sub-heading {
+                        padding-top: 50px;
+                        font-size: 18px;
+                    }
+                    .sub-heading-two {
+                        font-size: 15px;
+                    }
+                    .sub-heading-three {
+                        font-size: 13px;
+                    }
+                    .sub-heading-four {
+                        font-size: 11px;
+                    }
+                    .sub-heading-five {
+                        font-size: 9px;
+                    }
+                    .sub-heading-six {
+                        font-size: 7px;
+                    }
+                    .sub-heading-seven {
+                        font-size: 5px;
+                    }
+                    .sub-heading-eight {
+                        font-size: 3px;
+                    }
+                    .sub-heading-nine {
+                        font-size: 1px;
+                    }
+
+                    .entire-content {
+                        margin: auto;
+                        width: 190px;
+                        perspective: 1000px;
+                        position: relative;
+                        padding-top: 80px;
+                    }
+
+                    .content-carrousel {
+                        width: 100%;
+                        position: absolute;
+                        float: right;
+                        animation: rotar 15s infinite linear;
+                        transform-style: preserve-3d;
+                        right: 30%; /* Adjust this value as needed */
+
+                    }
+
+                    .content-carrousel:hover {
+                        animation-play-state: paused;
+                        cursor: pointer;
+                    }
+
+                    .content-carrousel figure {
+                        width: 100%;
+                        height: 120px;
+                        border: 1px solid #3b444b;
+                        overflow: hidden;
+                        position: absolute;
+                    }
+
+                    .content-carrousel figure:nth-child(1) {
+                        transform: rotateY(0deg) translateZ(300px);
+                    }
+                    .content-carrousel figure:nth-child(2) {
+                        transform: rotateY(60deg) translateZ(300px);
+                    }
+                    .content-carrousel figure:nth-child(3) {
+                        transform: rotateY(120deg) translateZ(300px);
+                    }
+                    .content-carrousel figure:nth-child(4) {
+                        transform: rotateY(180deg) translateZ(300px);
+                    }
+                    .content-carrousel figure:nth-child(5) {
+                        transform: rotateY(240deg) translateZ(300px);
+                    }
+                    .content-carrousel figure:nth-child(6) {
+                        transform: rotateY(300deg) translateZ(300px);
+                    }
+
+
+                    .shadow {
+                        position: absolute;
+                        box-shadow: 0px 0px 20px 0px #000;
+                        border-radius: 1px;
+                    }
+
+                    .content-carrousel img {
+                        image-rendering: auto;
+                        transition: all 300ms;
+                        width: 100%;
+                        height: 100%;
+                    }
+
+                    .content-carrousel img:hover {
+                        transform: scale(1.2);
+                        transition: all 300ms;
+                    }
+
+                    @keyframes rotar {
+                        from {
+                            transform: rotateY(0deg);
+                        }
+                        to {
+                            transform: rotateY(360deg);
+                        }
+                    }
+
+                    body{
+                        background-color:white!important;
+                        /*                         background: linear-gradient(135deg, #1a1a1a, #0066cc);*/
+                    }
+
+                </style>
+
+            </head>
+
+
+            <body >
+                <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                <h2 style=" text-align: center;
+                    font-size: 36px;
+                    color: navy; /* Adjust color as needed */
+                    font-family: Segoe UI; /* Use a modern sans-serif font */
+                    margin-top: 0px; /* Adjust top margin for better centering */
+                    margin-left: -100px">Welcome, #{personManagedBean.name} to EventPro</h2>
+
+
+                <div style="display: flex; justify-content: center; align-items: center; margin-top: 0px;">
+                    <!-- 3D Slideshow Section --> 
+                    <section id="slideshow">
+                        <div class="entire-content" style = "margin-left: -500px; margin-top: -20px;">
+                            <div class="content-carrousel">
+                                <figure class="shadow"><img src="https://www.thaipbsworld.com/wp-content/uploads/2024/02/Event-Hero-Banner-1200-675-%E2%94%90%E2%95%9C%E2%96%92%E2%94%A4_1.jpg"/></figure>
+                                <figure class="shadow"><img src="https://static1.straitstimes.com.sg/s3fs-public/styles/large30x20/public/articles/2018/10/21/kc-bts2110.jpg?VersionId=mZaD3gfN2z6x42JP2gkNUkvQEi9XG6Rt"/></figure>
+                                <figure class="shadow"><img src="https://res.klook.com/image/upload/x_58,y_0,w_964,h_1350,c_crop/c_scale,w_360/v1687687716/events_admin/yorkfyeytvhd58whd7yc.jpg"/></figure>
+                                <figure class="shadow"><img src="https://res.klook.com/image/upload/x_0,y_32,w_420,h_588,c_crop/c_scale,w_360/v1698305850/events_admin/vedhrre7fvupnnq2m8wd.jpg"/></figure>
+                                <figure class="shadow"><img src="https://i.etsystatic.com/7680112/r/il/126af4/3503936607/il_570xN.3503936607_qmsk.jpg"/></figure>
+                                <figure class="shadow"><img src="https://res.klook.com/image/upload/v1673236089/fn5oghoqyvpscdktqk27.jpg"/></figure>
+                            </div>
+                        </div>
+                    </section>
+
+                    <div style = "margin-right: -1000px;"> 
+                        <img src="https://images.wsj.net/im-744524/?width=1278&amp;size=1"
+                             style="border-radius: 50%; width: 180px; height: 180px; "
+                             alt="Event Image" /><br/><br/>
+
+                        <p style="font-size: 18px; font-family: Segoe UI; font-style: italic; font-weight: bold;">
+                            "At EventPro, we are committed to <br/> allowing individuals <br/> to take charge of their events"</p>
+                        <p style="font-size: 18px; font-family: Segoe UI;  font-weight: bold;">
+                            - CEO of EventPro</p>
+
+                    </div>
+
+
+
+                </div>
+                <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+
+                <div style="text-align: center;  margin-left: -100px"> <!-- Centering the button -->
+
+                    <button class="btn btn-primary" style="font-size: 20px; padding: 12px 20px; background-color: blue; color: white; border: none; border-radius: 8px; 
+                            cursor: pointer; transition: background-color 0.3s;
+                            margin-left: -100px;" 
+                            onclick="window.location.href = '#{request.contextPath}/authenticated/searchevents.xhtml';">
+                        View all events
+                        <i class="fa fa-arrow-right" style="margin-left: 14px;"></i> <!-- Add an arrow icon -->
+                    </button>
+
+                </div>
+
+            </body>
+
+
+
+        </html>
+    </ui:define>
+
+
+</ui:composition>

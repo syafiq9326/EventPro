@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="./css/default.css"/>
+        <h:outputStylesheet name="./css/cssLayout.css"/>
+        <title>Facelets Template</title>
+    </h:head>
+
+    <h:body style="background-color: white; color: black; ">
+
+        <div style="background-color: #152238; padding: 20px; display: flex; justify-content: space-between;
+             align-items: center;  margin-top: -10px; ">
+            <img src="https://static.vecteezy.com/system/resources/thumbnails/000/587/678/small/lletter-05-01.jpg" 
+                 alt="Event Pro Image" style="float: right; width: 50px; height: auto; border-radius: 50%; margin-right: 30px; margin-top:-10px;"/>
+
+
+            <div>
+                <h:commandButton value="Home" styleClass="btn btn-primary" style="font-size: 10px; padding: 5px;"
+                                 onclick="window.location.href = '#{request.contextPath}/authenticated/homepage.xhtml';">
+                    <i class="fa fa-fw fa-home" style="font-size: 24px; margin-right: 8px; color:white"></i>
+                </h:commandButton>
+
+
+                <h:commandButton value="Event Attendee" styleClass="btn btn-primary" style="font-size: 10px; padding: 5px;"
+                                 onclick="window.location.href = '#{request.contextPath}/authenticated/searchevents.xhtml';">
+                    <i class="fa fa-fw fa-calendar" style="font-size: 15px; margin-right: 8px; color:white"></i>
+                </h:commandButton>
+
+                <h:commandButton value="Event Organizer" styleClass="btn btn-primary" style="font-size: 10px; padding: 5px;"
+                                 onclick="window.location.href = '#{request.contextPath}/authenticated/eventmanager.xhtml';">
+                    <i class="fa fa-fw fa-calendar" style="font-size: 15px; margin-right: 8px; color:white"></i>
+                </h:commandButton>
+
+
+
+                <h:commandButton value="Profile" styleClass="btn btn-primary" style="font-size: 10px; padding: 5px;"
+                                 onclick="window.location.href = '#{request.contextPath}/authenticated/authenticated.xhtml';">
+                    <i class="fa fa-fw fa-user" style="font-size: 15px; margin-right: 8px; color:white"></i>
+                </h:commandButton>
+
+            </div>
+
+            <h:form>
+
+
+                <h:commandButton value="Logout" styleClass="btn btn-primary"
+                                 style="font-size: 15px; padding: 5px 13px; background-color: maroon; color: white; border: none; border-radius: 8px; cursor: pointer; transition: background-color 0.3s;" 
+                                 action="#{authenticationManagedBean.logout}">
+                </h:commandButton>
+
+            </h:form>
+
+        </div>
+
+
+
+
+        <div id="content" class="center_content">
+            <ui:insert name="content">Content</ui:insert>
+        </div>
+
+        <!-- jQuery -->
+        <script src="#{request.contextPath}/plugins/jquery/jquery.min.js"></script>
+        <!-- jQuery UI 1.11.4 -->
+        <script src="#{request.contextPath}/plugins/jquery-ui/jquery-ui.min.js"></script>
+        <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+        <script>
+                                     $.widget.bridge('uibutton', $.ui.button);
+        </script>
+        <!-- Bootstrap 4 -->
+        <script src="#{request.contextPath}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+        <!-- Tempusdominus Bootstrap 4 (Date Picker) -->
+        <script src="#{request.contextPath}/plugins/moment/moment.min.js"></script>
+        <script src="#{request.contextPath}/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+
+        <!-- AdminLTE App -->
+        <script src="#{request.contextPath}/dist/js/adminlte.js"></script>
+
+        <!-- DataTables -->
+        <script src="#{request.contextPath}/plugins/datatables/jquery.dataTables.min.js"></script>
+        <script src="#{request.contextPath}/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+        <script src="#{request.contextPath}/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+        <script src="#{request.contextPath}/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+        <script src="#{request.contextPath}/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+
+        <script>
+                                     // JavaScript for initializing Owl Carousel
+                                     jQuery(document).ready(function ($) {
+
+                                     });
+
+        </script>
+
+
+
+
+    </h:body>
+
+</html>

@@ -1,0 +1,413 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                template="/layout/default.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:define name="title">
+        More details on event
+    </ui:define>
+
+
+    <ui:define name="content">
+
+
+        <f:metadata> 
+            <!-- fetch eventId off the link --> 
+            <f:viewParam name="eventId" value="#{eventManagedBean.eventId}" /> 
+            <!-- load the selected event based off the id --> 
+            <f:event type="preRenderView" 
+                     listener="#{eventManagedBean.loadSelectedEvent()}"/> 
+            <!--using authenticationManagedBean user Id to set the id of my personManagedBean-->
+            <!-- since same session authenticationManagedBean will not run, setPersonIdAuth will take in the id from authBean-->
+            <f:event type="preRenderView" listener="#{personManagedBean.setPersonIdAuth}" />
+            <!-- based off person id-->
+            <f:event type="preRenderView" listener="#{personManagedBean.loadSelectedPerson()}"/> 
+        </f:metadata> 
+
+
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
+
+
+
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" type="text/css" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" rel="stylesheet" type="text/css" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" type="text/css" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" rel="stylesheet" type="text/css" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" rel="stylesheet" type="text/css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+
+
+
+
+        <br /> <br /> 
+
+        <h:form> 
+            <!-- for logout to go thru-->
+        </h:form>
+
+        <style>
+
+
+            section {
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                line-height: 26px;
+                background: #ffffff;
+                color: #ffffff;
+                font-family: bromega-Regular;
+            }
+
+            ol,
+            ul {
+                list-style: none;
+            }
+
+            a:hover {
+                text-decoration: none;
+            }
+
+            button:focus, input:focus, textarea:focus {
+                outline: 0;
+            }
+
+            .card_wrapper {
+                background: linear-gradient(180deg, #23273A 46.35%, #FA4A6F 119.01%);
+                background: white;
+                width: 100vw;
+                height: 100vh;
+                display: flex;
+                align-items: center;
+            }
+
+            .head_text {
+                font-family: bromega-Bold;
+                font-size: 45px;
+            }
+
+            .head_para {
+                margin-top: 15px;
+            }
+
+            .card_box {
+                background: #ffffff;
+                border-radius: 70px;
+                margin-top: 10px;
+                transition: .3s;
+                margin-bottom: 0px;
+                border: 2px solid black; /* Set border color to black */
+                height:300px;
+                width:300px;
+                margin: 0 auto; /* Center the card horizontally */
+            }
+
+            .card_box:hover {
+                box-shadow: 0px 4px 0px rgba(0, 0, 0, 0.05);
+                transform: translateY(-10px);
+            }
+
+            .card_text {
+                padding: 30px 20px 25px 20px;
+            }
+
+            .card_text h4 {
+                font-size: 18px;
+                font-family: bromega-Bold;
+                color: #FA4A6F;
+            }
+
+            .card_text p {
+                font-size: 14px;
+                line-height: 150%;
+                margin-top: 10px;
+                color: #23273A;
+            }
+
+            .slider_carousel .owl-nav {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 100%;
+                display: flex;
+                justify-content: space-between; /* Add this to position arrows at the sides */
+            }
+
+
+
+            .slider_carousel .owl-next {
+                right: 0; /* Adjust the margin-right value to bring the arrow closer */
+                color: #000000 !important; /* Set color to black */
+                width: 600px; /* Adjust width as needed */
+                height: 40px; /* Adjust height as needed */
+            }
+
+            .slider_carousel .owl-prev {
+                color: #000000 !important; /* Set color to black */
+                width: 600px; /* Adjust width as needed */
+                height: 40px; /* Adjust height as needed */
+            }
+
+            body {
+                overflow-x: hidden; /* Hide horizontal scrollbar */
+
+            }
+
+            .my-messages {
+                position: fixed;
+                top: 10%;
+                right: 8%; /* Adjust this value as needed to center horizontally */
+                transform: translateX(50%);
+                z-index: 1000;
+                background-color: grey;
+                border: 1px solid black;
+                padding: 10px;
+                border-radius: 10px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                max-width: 300px;
+                font-size: 1rem;
+                color: white;
+                -webkit-animation: flashMessage 7s ease-out forwards; /* Webkit prefix */
+            }
+
+
+
+            @-webkit-keyframes flashMessage {
+                0%, 100% {
+                    opacity: 1;
+                }
+                50% {
+                    opacity: 0;
+                }
+                100% {
+                    opacity: 0;
+                    display: none; /* Hide the message completely after the animation */
+                }
+            }
+
+        </style>
+
+        <br/><br/>
+        <h2 class="text-3xl mb-4 text-center font-bold">Event Title: #{eventManagedBean.title}</h2>
+        <!--<div style="margin: 0 auto; width: 400px; ">
+                                <canvas id="myPieChart" style="width: 100%; height: 750px;"></canvas>
+                            </div>                -->
+        <h:messages globalOnly="true" styleClass = "my-messages" />
+
+
+        <br/> <br/>
+        <!-- start for pie chart and all registrant card -->
+        <div class="grid grid-cols-1 lg:grid-cols-1 gap-8">
+            <!-- Top Row: Pie Chart (2/3) and All Registrants (1/3) -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- All Registrants (1/3) -->
+                <div class="lg:col-span-1 bg-white p-4 rounded-lg shadow border-2 border-black">
+                    <h2 class="text-xl mb-4 text-center">All Registrants</h2>
+                    <div class="owl-carousel slider_carousel">
+                        <!-- Repeat the card box for each registrant -->
+                        <ui:repeat value="#{eventManagedBean.getAllAttendees().entrySet().toArray()}" var="entry">
+                            <div class="card_box">
+                                <div class="card_text text-center">
+                                    <img src="#{empty personManagedBean.getPersonById(entry.key).photoLink 
+                                                ? 'https://t3.ftcdn.net/jpg/05/17/79/88/360_F_517798849_WuXhHTpg2djTbfNf0FQAjzFEoluHpnct.jpg' : personManagedBean.getPersonById(entry.key).photoLink}" 
+                                         style="border-radius: 50%; width: 150px; height: 150px; display: inline-flex; align-items: center; margin-right: -10px;"/>
+                                    <h4 class="text-lg font-semibold">Name: #{personManagedBean.getPersonById(entry.key).name}</h4>
+                                    <p>Attendance: #{entry.value}</p><br/>
+                                    <h:form>
+                                        <h:commandButton value="Mark" 
+                                                         style="font-size: 12px;  padding: 5px; color:white;background-color: #152238; margin-top:-15px;"
+                                                         actionListener="#{eventManagedBean.markAttendeePresent(eventManagedBean.eventId, entry.key, authenticationManagedBean.userId)}" />
+                                    </h:form>
+                                </div>
+                            </div>
+                        </ui:repeat>
+                    </div>
+                </div>
+                <!-- Placeholder for the pie chart (1/3) -->
+                <div class="lg:col-span-1 bg-white p-4 rounded-lg shadow border-2 border-black flex items-center justify-center">
+                    <div class="text-center">
+                        <h2 class="text-xl mb-4">Distribution Of Attendance</h2>
+                        <div style="margin: 0 auto; width: 400px;">
+                            <canvas id="myPieChart" style="width: 100%;"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Placeholder for the percentage (1/3) -->
+                <div class="lg:col-span-1 bg-white p-4 rounded-lg shadow border-2 border-black flex items-center justify-center">
+                    <div class="text-center">
+
+                        <h2 class="text-3xl mb-4 font-bold">#{eventManagedBean.description} </h2>
+
+                        <h2 class="text-3xl mb-4 font-bold">#{eventManagedBean.attendedCount()} / #{eventManagedBean.eventSize()} attended</h2>
+
+                        <h2 class="text-8xl mb-4 font-bold text-red" style="color: red;">#{eventManagedBean.percentageAttend()} %</h2>
+
+                        <div style="margin: 0 auto; width: 400px;">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- Bottom Row: All Absentees (1/2) and All Present Attendees (1/2) -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 border-2 border-black">
+                <!-- All Absentees (1/2) -->
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <h2 class="text-xl mb-4 text-center">All Absentees</h2>
+                    <div class="owl-carousel slider_carousel">
+                        <!-- Repeat the card box for each absentee -->
+                        <ui:repeat value="#{eventManagedBean.getFalseAttendees()}" var="entry">
+                            <div class="card_box">
+                                <div class="card_text text-center">
+                                    <img src="#{empty personManagedBean.getPersonById(entry.key).photoLink 
+                                                ? 'https://t3.ftcdn.net/jpg/05/17/79/88/360_F_517798849_WuXhHTpg2djTbfNf0FQAjzFEoluHpnct.jpg' : personManagedBean.getPersonById(entry.key).photoLink}" 
+                                         style="border-radius: 50%; width: 150px; height: 150px; display: inline-flex; align-items: center; margin-right: -10px;"/>
+                                    <h4 class="text-lg font-semibold">Name: #{personManagedBean.getPersonById(entry.key).name}</h4>
+                                    <p>Attendance: #{entry.value}</p>
+                                </div>
+                            </div>
+                        </ui:repeat>
+                    </div>
+                </div>
+                <!-- All Present Attendees (1/2) -->
+                <div class="bg-white p-4 rounded-lg shadow border-1 border-black">
+                    <h2 class="text-xl mb-4 text-center">All Present</h2>
+                    <div class="owl-carousel slider_carousel">
+                        <!-- Repeat the card box for each present attendee -->
+                        <ui:repeat value="#{eventManagedBean.getTrueAttendees()}" var="entry">
+                            <div class="card_box">
+                                <div class="card_text text-center">
+                                    <img src="#{empty personManagedBean.getPersonById(entry.key).photoLink 
+                                                ? 'https://t3.ftcdn.net/jpg/05/17/79/88/360_F_517798849_WuXhHTpg2djTbfNf0FQAjzFEoluHpnct.jpg' : personManagedBean.getPersonById(entry.key).photoLink}" 
+                                         style="border-radius: 50%; width: 150px; height: 150px; display: inline-flex; align-items: center; margin-right: -10px;"/>
+                                    <h4 class="text-lg font-semibold">Name: #{personManagedBean.getPersonById(entry.key).name}</h4>
+                                    <p>Attendance: #{entry.value}</p>
+                                </div>
+                            </div>
+                        </ui:repeat>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- card area end for all present-->
+
+
+
+
+
+        <!-- Placeholder for the pie chart js -->
+        <script>
+            // Get the data from your session bean using EL expression
+            var chartData = #{eventManagedBean.jsonChartData};
+            //            var chartData = {"Not Attended": 2, "Attended": 3};
+
+            // Get the canvas element
+            var ctx = document.getElementById('myPieChart').getContext('2d');
+
+            // Define the pie chart data
+            var data = {
+                labels: Object.keys(chartData), // Get the keys from the chartData map
+                datasets: [{
+                        data: Object.values(chartData), // Get the values from the chartData map
+                        backgroundColor: ['#152238', 'maroon'] // Example colors for the pie chart slices
+                    }]
+            };
+
+            // Define options for the chart
+            var option = {
+                tooltips: {
+                    callbacks: {
+                        label: function (tooltipItem, data) {
+                            var dataset = data.datasets[tooltipItem.datasetIndex];
+                            var total = dataset.data.reduce(function (previousValue, currentValue, currentIndex, array) {
+                                return previousValue + currentValue;
+                            });
+                            var currentValue = dataset.data[tooltipItem.index];
+                            console.log(`Total: ${total}`);
+                            console.log('Current Value:', currentValue);
+                            var percentage = Math.floor(((currentValue / total) * 100) + 0.5);
+                            return `${currentValue} (${percentage}%)`;
+                        }
+                    }
+                }
+            };
+
+            // Initialize the pie chart
+            var myPieChart = new Chart(ctx, {
+                type: 'pie',
+                data: data,
+                options: option // Pass options to the chart constructor
+            });
+        </script>
+
+        <!-- End Placeholder for the pie chart -->
+
+
+
+        <script>
+            function slider_carouselInit() {
+                $('.owl-carousel.slider_carousel').owlCarousel({
+                    dots: false,
+                    loop: true,
+                    margin: 30,
+                    stagePadding: 2,
+                    autoplay: false,
+                    nav: true,
+                    //                    navText: ["<i class='fas fa-chevron-left'></i>", "<i class='fas fa-chevron-right'></i>"], // Custom arrow icons using Font Awesome
+                    navText: ["&#9668;", "&#9658;"], // Unicode for left and right arrows
+
+
+                    autoplayTimeout: 1500,
+                    autoplayHoverPause: true,
+                    responsive: {
+                        0: {
+                            items: 1
+                        },
+                        768: {
+                            items: 1
+                        },
+                        992: {
+                            items: 1
+                        }
+                    }
+                });
+            }
+            slider_carouselInit();
+
+        </script>
+        <!-- end of users in event -->
+
+
+
+        <br /> 
+        <!-- Success dialog -->
+
+
+
+    </ui:define>
+
+</ui:composition>

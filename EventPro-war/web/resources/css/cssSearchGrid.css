@@ -1,0 +1,53 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Mar 2, 2024, 3:09:34 AM
+    Author     : Syafiq
+*/
+
+.product-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.product-grid-item {
+    width: calc(33.33% - 10px); /* Adjust the width based on your design */
+    margin-bottom: 20px;
+    border: 1px solid #ccc; /* Add border or customize as needed */
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.product-grid-item-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.product-category {
+    font-weight: bold;
+}
+
+.product-badge {
+    background-color: #007bff; /* Example color, customize as needed */
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.product-grid-item-content {
+    margin-top: 10px;
+}
+
+.product-description {
+    font-style: italic;
+}
+
+.product-price {
+    font-weight: bold;
+    color: #007bff; /* Example color, customize as needed */
+}
+

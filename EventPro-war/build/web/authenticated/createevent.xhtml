@@ -1,0 +1,252 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                template="/layout/default.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <h:outputStylesheet name="./css/default.css"/>
+    <h:outputStylesheet name="./css/cssLayout.css"/>
+
+    <ui:define name="title">
+        Create Event
+    </ui:define>
+
+    <ui:define name="content">
+        <br /> <br /> 
+        <h:form></h:form>
+
+        <f:metadata> 
+            <!--using authenticationManagedBean user Id to set the id of my personManagedBean-->
+            <!-- since same session authenticationManagedBean will not run, setPersonIdAuth will take in the id from authBean-->
+            <f:event type="preRenderView" listener="#{personManagedBean.setPersonIdAuth}" />
+            <!-- based off person id-->
+            <f:event type="preRenderView" listener="#{personManagedBean.loadSelectedPerson()}"/> 
+        </f:metadata> 
+
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" type="text/css" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" rel="stylesheet" type="text/css" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+        <style>
+
+            .login-container {
+                display: flex;
+                flex-direction: column;
+                background-color: white;
+                border-radius: 30px;
+                padding: 20px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                width:450px;
+                border: 2px solid black; /* Add border style with black color */
+/*                margin-left:500px;*/
+                margin: 0 auto; /* Center horizontally */
+
+            }
+            .login-form {
+                width: 100%;
+                max-width: 400px;
+                text-align: center;
+            }
+            .login-input {
+                margin-bottom: 10px;
+                padding: 8px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                width: 100%;
+            }
+            .login-button {
+                padding: 10px 20px;
+                background-color: grey;
+                color: black;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+            .login-button:hover {
+                background-color: grey;
+            }
+
+            .registration-form {
+                width: 500px;
+                margin: auto;
+                padding: 20px;
+                background-color: #f9f9f9;
+                border-radius: 8px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+
+            .registration-form h2 {
+                text-align: center;
+                margin-bottom: 20px;
+            }
+
+            .form-group {
+                margin-bottom: 20px;
+            }
+
+            .form-group label {
+                display: block;
+                margin-bottom: 5px;
+            }
+
+            .form-group input {
+                width: 90%;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+            }
+
+            .form-group input:focus {
+                outline: none;
+                border-color: #6c63ff;
+                box-shadow: 0 0 5px rgba(108, 99, 255, 0.5);
+            }
+
+            .error {
+                color: #ff6347;
+                font-size: 14px;
+            }
+
+            button[type="submit"] {
+                width: 100%;
+                padding: 10px;
+                background-color: #6c63ff;
+                color: #fff;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+
+            button[type="submit"]:hover {
+                background-color: #544bd2;
+            }
+
+            .my-messages {
+                position: fixed;
+                top: 10%;
+                right: 8%; /* Adjust this value as needed to center horizontally */
+                transform: translateX(50%);
+                z-index: 1000;
+                background-color: grey;
+                border: 1px solid black;
+                padding: 10px;
+                border-radius: 10px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                max-width: 300px;
+                font-size: 1rem;
+                color: white;
+                -webkit-animation: flashMessage 7s ease-out forwards; /* Webkit prefix */
+            }
+
+
+
+            @-webkit-keyframes flashMessage {
+                0%, 100% {
+                    opacity: 1;
+                }
+                50% {
+                    opacity: 0;
+                }
+                100% {
+                    opacity: 0;
+                    display: none; /* Hide the message completely after the animation */
+                }
+            }
+
+
+
+
+        </style>
+
+
+        <body>
+            <br/><br/><br/><br/>
+            <h:messages globalOnly="true" styleClass = "my-messages" />
+            <div class="login-container"  >
+
+                <h:graphicImage value="https://images.squarespace-cdn.com/content/v1/5b90da2796e76f3a1bf894f1/1566369102035-1VTT5SFHPD1V3MR0E3ZA/EVENT_Ticker.gif"
+                                style="width: 400px; height: 150px;; margin-bottom: 20px;"/>
+
+
+                <h:form id="signupForm" class="space-y-4">
+                    <div class="form-group">
+                        <label for="title" class="block text-gray-700 text-sm font-bold mb-2">Title:</label>
+                        <h:inputText id="title" value="#{eventManagedBean.title}" required="true" requiredMessage="Email is required."
+                                     class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                        <h:message for="title" styleClass="my-messages" />
+
+                    </div>
+                    <div class="form-group">
+                        <label for="date" class="block text-gray-700 text-sm font-bold mb-2">Date:</label>
+                        <h:inputText id="date" value="#{eventManagedBean.date}" required="true"  requiredMessage="Date is required" styleClass="datepicker">
+                            <f:convertDateTime pattern="yyyy-MM-dd" />
+                        </h:inputText>
+                        <h:message for="date" styleClass="my-messages" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="deadline" class="block text-gray-700 text-sm font-bold mb-2">Deadline:</label>
+                        <h:inputText id="deadline" value="#{eventManagedBean.deadline}" required="true"  requiredMessage="Deadline is required" styleClass="datepicker">
+                            <f:convertDateTime pattern="yyyy-MM-dd" />
+                        </h:inputText>
+                        <h:message for="deadline" styleClass="my-messages" />
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="location" class="block text-gray-700 text-sm font-bold mb-2">Location:</label>
+                        <h:inputText id="location" value="#{eventManagedBean.location}" required="true" requiredMessage="Location is required."
+                                     class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                        <h:message for="location" styleClass="my-messages" />
+                    </div>
+                    <div class="form-group">
+                        <label for="description" class="block text-gray-700 text-sm font-bold mb-2">Description</label>
+                        <h:inputText id="description" value="#{eventManagedBean.description}" required="true" requiredMessage="Description is required."
+                                     class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                        <h:message for="description" styleClass="my-messages" />
+                    </div>
+
+                    <div class="flex items-center justify-between">
+                        <h:commandButton value="Add Event" action="#{eventManagedBean.managerMakeEvent2(evt, personManagedBean.personId)}"
+                                         style="font-size: 14px; padding: 12px 20px; background-color: #152238; color: white;
+                                         border: none; border-radius: 8px; cursor: pointer; transition: background-color 0.3s;
+                                         margin-left: 160px;"/><br/><br/>
+
+
+                    </div>
+
+
+                    <script>
+                        $(document).ready(function () {
+                            // Initialize the datepicker
+                            $('.datepicker').datepicker({
+                                dateFormat: 'yy-mm-dd', // Set the date format
+                                changeYear: true, // Allow changing the year
+                                changeMonth: true, // Allow changing the month
+                                yearRange: 'c-10:c+10' // Set the range of years
+                            });
+                        });
+                    </script>
+
+                </h:form>
+
+            </div>
+
+        </body>
+
+    </ui:define>
+
+
+
+</ui:composition>

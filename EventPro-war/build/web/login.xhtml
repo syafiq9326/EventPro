@@ -1,0 +1,132 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+
+    <h:head>
+        <title>Login</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                /*https://i.pinimg.com/originals/70/67/c2/7067c29f2c2336c23c827cfda44e7c61.gif'*/
+                /*                https://i.pinimg.com/originals/38/e5/82/38e58269b2efb37b03860874b660f1a1.gif*/
+                background-image: url('https://i.pinimg.com/originals/70/67/c2/7067c29f2c2336c23c827cfda44e7c61.gif');
+                background-size: cover;
+                background-repeat: no-repeat;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                margin: 0;
+            }
+            .login-container {
+                background-color: white;
+                border-radius: 8px;
+                padding: 20px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+            .login-form {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .login-input {
+                margin-bottom: 10px;
+                padding: 8px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                width: 200px;
+            }
+            .login-button {
+                padding: 10px 20px;
+                background-color: grey;
+                color: black;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+            .login-button:hover {
+                background-color: grey;
+            }
+
+            .my-messages {
+                position: fixed;
+                top: 10%;
+                right: 8%; /* Adjust this value as needed to center horizontally */
+                transform: translateX(50%);
+                z-index: 1000;
+                background-color: grey;
+                border: 1px solid black;
+                padding: 10px;
+                border-radius: 10px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                max-width: 400px;
+                font-size:20px;
+                color: white;
+                -webkit-animation: flashMessage 7s ease-out forwards; /* Webkit prefix */
+            }
+
+
+
+            @-webkit-keyframes flashMessage {
+                0%, 100% {
+                    opacity: 1;
+                }
+                50% {
+                    opacity: 0;
+                }
+                100% {
+                    opacity: 0;
+                    display: none; /* Hide the message completely after the animation */
+                }
+            }
+
+
+        </style>
+    </h:head>
+
+
+    <h:body>
+        <div class="login-container" style="width: 650px; ">
+            <h:messages globalOnly="true" styleClass = "my-messages" />
+
+            <!-- here for the popup -->
+            <!--            <p:growl id="growl" showDetail="true" sticky="true" /> -->
+
+            <h:graphicImage value="https://images.squarespace-cdn.com/content/v1/5b90da2796e76f3a1bf894f1/1566369102035-1VTT5SFHPD1V3MR0E3ZA/EVENT_Ticker.gif"
+                            style="width: 650px; height: auto; margin-bottom: 20px;"/>
+
+
+            <h:form id="loginForm" styleClass="login-form">
+                <h:outputLabel for="username" value="Username:"/>
+                <h:inputText id="username" value="#{authenticationManagedBean.username}" styleClass="login-input"/>
+
+                <h:outputLabel for="password" value="Password:"/>
+                <h:inputSecret id="password" value="#{authenticationManagedBean.password}" styleClass="login-input" />
+                <br/>
+                <h:commandButton value="Login" action="#{authenticationManagedBean.login2(authenticationManagedBean.username, authenticationManagedBean.password)}" styleClass="login-button"
+                                 style = "background-color: #152238; color:white;">
+                    <i class="fa fa-sign-in"></i>
+                </h:commandButton>
+                <br/>
+
+                <h:button value="Register" outcome="signup.xhtml" styleClass="login-button"
+                          style = "background-color: #152238; color:white;">
+                    <i class="fa fa-user-plus"></i>
+                </h:button>
+                <br/>
+                <h:button value="Forgot Password" outcome="forgotpassword.xhtml" styleClass="login-button" style = "background-color: #152238; color:white;">
+                    <i class="fa fa-lock"></i>
+                </h:button>
+
+
+            </h:form>
+
+
+
+
+        </div>
+    </h:body>
+</html>

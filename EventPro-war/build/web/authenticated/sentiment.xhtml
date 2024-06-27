@@ -1,0 +1,264 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+
+    <html xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+          xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+        <head>
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <title>Slider Example</title>
+            <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+            <style>
+                @import url('https://fonts.googleapis.com/css?family=Tajawal');
+
+                body {
+                    background: #373B44;
+                    background: -webkit-linear-gradient(to top, #4286f4, #373B44);
+                    background: linear-gradient(to top, #4286f4, #373B44);
+                    min-height: 100vh;
+                    margin: 0;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-family: 'Tajawal', sans-serif;
+                }
+
+                .slider-container {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    height: 500px;
+                    width: 100vw;
+                    perspective: 1000px;
+                    position: relative;
+                    transform-style: preserve-3d;
+                    overflow-x: hidden;
+                    overflow-y: visible;
+                }
+
+                .slide {
+                    background-size: cover;
+                    background-repeat: no-repeat;
+                    border-radius: 5px;
+                    width: 20%;
+                    height: 400px;
+                    overflow: hidden;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: calc(20% - 20px);
+                    z-index: 1000;
+                    transition: all 0.3s ease-in-out;
+                    opacity: 0;
+                }
+
+                .slide .content {
+                    background-color: #fff;
+                    padding: 10px 10px;
+                    text-align: center;
+                    margin-top: 200px;
+                    height: 200px;
+                }
+
+                .slide.slide-1 {
+                    transform-origin: right;
+                    transform: scale(0.95) rotateY(-20deg);
+                    left: 1.5% !important;
+                    z-index: 1;
+                    opacity: 1;
+                }
+
+                .slide.slide-2 {
+                    transform-origin: right;
+                    transform: rotateY(-10deg);
+                    left: 20% !important;
+                    z-index: 2;
+                    opacity: 1;
+                }
+
+                .slide.slide-3 {
+                    left: 40% !important;
+                    z-index: 2;
+                    opacity: 1;
+                }
+
+                .slide.slide-4 {
+                    transform-origin: left;
+                    transform: rotateY(10deg);
+                    left: 60% !important;
+                    z-index: 2;
+                    opacity: 1;
+                }
+
+                .slide.slide-5 {
+                    transform-origin: left;
+                    transform: scale(0.95) rotateY(20deg);
+                    margin-left: 0;
+                    left: 78.5% !important;
+                    z-index: 1;
+                    opacity: 1;
+                }
+
+                h2 {
+                    margin: -40px 0 0;
+                }
+
+                img.circle {
+                    object-fit: cover;
+                    width: 75px;
+                    height: 75px;
+                    border-radius: 50%;
+                    transform: translateY(calc(-50% - 10px));
+                }
+
+                .buttons-container {
+                    position: absolute;
+                    bottom: 0;
+                }
+
+                .arrow {
+                    background: transparent;
+                    border-radius: 50%;
+                    border: 1px solid #fff;
+                    cursor: pointer;
+                    color: #fff;
+                    width: 50px;
+                    height: 50px;
+                    margin: 30px 20px 0;
+                }
+
+                .btn-tbn-primary {
+                    /* Add your styling here */
+                    background-color: blue;
+                    color: white;
+                    padding: 10px 20px;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    /* Add more styles as needed */
+                }
+            </style>
+
+        </head>
+
+        <body>
+
+            <div class="slider-container">
+                <div class="slide slide-1">
+                    <div class="content">
+                        <img class="circle"
+                             src="https://images.pexels.com/photos/935756/pexels-photo-935756.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
+                             alt="person" />
+                        <h2>Post 1</h2>
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veniam, ad!</p>
+                    </div>
+                </div>
+                <div class="slide slide-2">
+                    <div class="content">
+                        <img class="circle"
+                             src="https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
+                             alt="person" />
+                        <h2>Post 2</h2>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing.</p>
+                    </div>
+                </div>
+                <div class="slide slide-3">
+                    <div class="content">
+                        <img class="circle"
+                             src="https://images.pexels.com/photos/937481/pexels-photo-937481.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
+                             alt="person" />
+                        <h2>Post 3</h2>
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veniam, ad!</p>
+                        <a href="ex" class="btn-tbn-primary">Go to Example</a>
+
+                    </div>
+                </div>
+
+                <div class="slide slide-4">
+                    <div class="content">
+                        <img class="circle"
+                             src="https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
+                             alt="person" />
+                        <h2>Post 2</h2>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing.</p>
+                    </div>
+                </div>
+
+
+                <!-- Add more slides here -->
+                <div class="buttons-container">
+                    <button class="arrow left">
+                        <i class="fa fa-arrow-left"></i>
+                    </button>
+                    <button class="arrow right">
+                        <i class="fa fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+
+            <script>
+                const leftButton = document.querySelector('.arrow.left');
+                const rightButton = document.querySelector('.arrow.right');
+
+                leftButton.addEventListener('click', () => {
+                    console.log("ckcujed");
+                    turnSlider('left');
+                });
+
+                rightButton.addEventListener('click', () => {
+                    console.log("r");
+
+                    turnSlider('right');
+                });
+
+                function turnSlider(direction) {
+                    const slides = document.querySelectorAll(`.slide`);
+                    slides.forEach(slide => {
+                        let currentSlide = +(slide.classList + '').split('-')[1];
+                        let slideToBe;
+                        switch (direction) {
+                            case 'left':
+                            {
+                                slideToBe = currentSlide - 1;
+                                if (slideToBe === 0) {
+                                    slideToBe = slides.length;
+
+                                }
+                                console.log("left");
+                                break;
+                            }
+                            case 'right':
+                            {
+                                slideToBe = currentSlide + 1;
+                                if (slideToBe > slides.length) {
+                                    slideToBe = 1;
+                                }
+                                console.log("right");
+
+                                break;
+                            }
+                        }
+                        slide.classList.remove(`slide-${currentSlide}`);
+                        slide.classList.add(`slide-${slideToBe}`);
+                    });
+                }
+            </script>
+
+        </body>
+
+
+    </html>
+
+</ui:composition>

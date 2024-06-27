@@ -1,0 +1,335 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../layout/default.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <ui:define name="title">
+        title
+    </ui:define>
+
+    <ui:define name="content">
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" type="text/css" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" rel="stylesheet" type="text/css" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+
+        <f:metadata> 
+            <!-- to get the eventId from the  link and bind it to a event in managed bean so now eventManagedBean is set --> 
+            <f:viewParam name="eventId" value="#{eventManagedBean.eventId}" /> 
+
+            <!--using authenticationManagedBean user Id to set the id of my personManagedBean-->
+            <!-- since same session authenticationManagedBean will not run-->
+            <f:event type="preRenderView" listener="#{personManagedBean.setPersonIdAuth}" />
+            <!-- based off person and event id-->
+            <f:event type="preRenderView" listener="#{personManagedBean.loadSelectedPerson()}"/> 
+            <f:event type="preRenderView" listener="#{eventManagedBean.loadSelectedEvent()}"/> 
+
+        </f:metadata> 
+
+
+
+        <style>
+            .card_wrapper {
+                background: linear-gradient(180deg, #23273A 46.35%, #FA4A6F 119.01%);
+                background: white;
+                width: 100vw;
+                height: 100vh;
+                display: flex;
+                align-items: center;
+            }
+
+            .head_text {
+                font-family: bromega-Bold;
+                font-size: 45px;
+            }
+
+            .head_para {
+                margin-top: 15px;
+            }
+
+            .card_box {
+                background: #ffffff;
+                border-radius: 70px;
+                margin-top: 10px;
+                transition: .3s;
+                margin-bottom: 0px;
+                border: 2px solid black; /* Set border color to black */
+                height:200px;
+                width:250px;
+                margin: 0 auto; /* Center the card horizontally */
+            }
+
+            .card_box:hover {
+                box-shadow: 0px 4px 0px rgba(0, 0, 0, 0.05);
+                transform: translateY(-10px);
+            }
+
+            .card_text {
+                padding: 30px 20px 25px 20px;
+            }
+
+            .card_text h4 {
+                font-size: 18px;
+                font-family: bromega-Bold;
+                color: #FA4A6F;
+            }
+
+            .card_text p {
+                font-size: 14px;
+                line-height: 150%;
+                margin-top: 10px;
+                color: #23273A;
+            }
+
+            .slider_carousel .owl-nav {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 100%;
+                display: flex;
+                justify-content: space-between; /* Add this to position arrows at the sides */
+            }
+
+
+
+            .slider_carousel .owl-next {
+                right: 0; /* Adjust the margin-right value to bring the arrow closer */
+                color: #000000 !important; /* Set color to black */
+                width: 600px; /* Adjust width as needed */
+                height: 40px; /* Adjust height as needed */
+            }
+
+            .slider_carousel .owl-prev {
+                color: #000000 !important; /* Set color to black */
+                width: 600px; /* Adjust width as needed */
+                height: 40px; /* Adjust height as needed */
+            }
+
+            body {
+                overflow-y: hidden; /* Hide horizontal scrollbar */
+                overflow-x: hidden;
+
+            }
+
+            .stars {
+                display: inline-block;
+                font-size: 50px;
+            }
+            .stars::before {
+                content: '★★★★★';
+                letter-spacing: 3px;
+                background: linear-gradient(90deg, gold calc(var(--rating) * 20%), #ccc calc(var(--rating) * 20%));
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+
+            .my-messages {
+                position: fixed;
+                top: 10%;
+                right: 8%; /* Adjust this value as needed to center horizontally */
+                transform: translateX(50%);
+                z-index: 1000;
+                background-color: grey;
+                border: 1px solid black;
+                padding: 10px;
+                border-radius: 10px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                max-width: 300px;
+                font-size: 1rem;
+                color: white;
+                -webkit-animation: flashMessage 7s ease-out forwards; /* Webkit prefix */
+            }
+
+
+
+            @-webkit-keyframes flashMessage {
+                0%, 100% {
+                    opacity: 1;
+                }
+                50% {
+                    opacity: 0;
+                }
+                100% {
+                    opacity: 0;
+                    display: none; /* Hide the message completely after the animation */
+                }
+            }
+            
+        </style>
+
+        <!-- making sure our user is still logged in for debug -->
+        <br/><br/>
+
+        <br/>
+        <h:form> 
+            <!--for logout button to work -->
+        </h:form>
+
+        <br/><br/>
+        <body style = "overflow-x: hidden;">
+            <div style="height: 400px; display: flex; align-items: center; justify-content: center; text-align: center;">
+                <h:messages globalOnly="true" styleClass = "my-messages" />
+
+                <!-- Feedback Form Box -->
+                <div class="card" style="width: 35%;">
+                    <h:form id="form">
+                        <h:outputText value="View and add feedbacks for #{eventManagedBean.title}" style="font-size: 24px; font-weight: bold; color: black; text-align: center;
+                                      color: #0070ba; /* Adjust color as needed */
+                                      font-family: Segoe UI; /* Use a modern sans-serif font */"/>
+                        <br/><br/>   
+                        <h2>Feedback Form</h2>
+                        <div style="width: 60%;">
+
+                            <h:inputTextarea id="name" value="#{feedbackManagedBean.description}"
+                                             rows="5" cols="50"
+                                             required="true" requiredMessage="Description is required" />
+                            <h:message for="name" styleClass="my-messages" />
+
+                            <h:outputText id="display" class="block" />
+                        </div>
+
+                        <br/>
+                        <div columns="1" style="width: 30%;">
+                            <h:outputLabel for="rating">Ratings(Out of 5):</h:outputLabel>
+                            <h:inputText id="rating" value="#{feedbackManagedBean.rating}"
+                                         required="true"
+                                         requiredMessage="Rating is required" />
+                        </div>
+
+                        <br />  <br />
+                        <h:commandButton value="Submit"
+                                         style="font-size:20px; padding: 5px; margin-right:400px; background-color:#152238; color:white"
+                                         actionListener="#{feedbackManagedBean.addFeedback(evt,eventManagedBean.eventId)}"
+                                         />
+                    </h:form>
+                </div>
+
+                <!--end of form box -->
+
+
+                <!--            start of donutmodel
+                
+                Container div for the chart with specified dimensions -->
+                <div id="donutChartContainer" style="width: 250px; height: 250px;">
+                    <h3 style="text-align: center;">Rating:#{eventManagedBean.averageRating()} / 5</h3>
+                </div>
+                <!--             JavaScript to draw the chart -->
+                <script>
+                    // Get the container div
+                    var container = document.getElementById('donutChartContainer');
+
+                    // Create a canvas element within the container
+                    var canvas = document.createElement('canvas');
+                    canvas.setAttribute('id', 'myDonutChart');
+                    container.appendChild(canvas);
+
+                    // Get the canvas element
+                    var ctx = canvas.getContext('2d');
+
+                    // Define the data for the chart
+                    var data = {
+                        datasets: [{
+                                data: #{eventManagedBean.donutData},
+                                backgroundColor: ['#152238', 'maroon'] // Colors for the segments
+                            }]
+                    };
+
+                    // Define options for the chart
+                    var options = {
+                        // You can define options here, such as tooltips, legend, etc.
+                    };
+
+                    // Create the donut chart
+                    var myDonutChart = new Chart(ctx, {
+                        type: 'doughnut',
+                        data: data,
+                        options: options
+                    });
+                </script>
+
+                <!--            end of donutmodel -->
+
+
+            </div>
+
+            <!-- start of feedback -->
+            <div class="card_wrapper" style="height: 55%; ">
+                <div class="container" style="width: 94%;">
+                    <div class="row">
+                        <div class="col-6 text-center">
+                        </div>
+                        <div class="col-12">
+                            
+                            <h2 style="margin-top: -160px; text-align: center;">Descriptions and Ratings</h2><br/><br/>
+
+
+                            <div class="owl-carousel slider_carousel">
+                                <!-- Repeat the card box for each event -->
+                                <ui:repeat value="#{eventManagedBean.loadFeedbacks()}" var="feedback">
+                                    <div class="card_box">
+                                        <br />
+
+                                        <!-- Event Details --> <br/> <br/>
+                                        <div class="card_text" style="text-align: center;margin-top: -40px;">
+                                            <h2>"#{feedback.description}"</h2> <br/> <br/>
+                                            <div class="stars" style="--rating: #{feedback.rating};"></div> <br/> <br/>
+
+                                            <h2>#{feedback.rating}/5</h2>
+                                        </div>
+                                    </div>
+                                </ui:repeat>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </body>
+
+        <script>
+            function slider_carouselInit() {
+                $('.owl-carousel.slider_carousel').owlCarousel({
+                    dots: false,
+                    loop: true,
+                    margin: 30,
+                    stagePadding: 2,
+                    autoplay: false,
+                    nav: true,
+                    //                    navText: ["<i class='fas fa-chevron-left'></i>", "<i class='fas fa-chevron-right'></i>"], // Custom arrow icons using Font Awesome
+                    navText: ["&#9668;", "&#9658;"], // Unicode for left and right arrows
+
+
+                    autoplayTimeout: 1500,
+                    autoplayHoverPause: true,
+                    responsive: {
+                        0: {
+                            items: 1
+                        },
+                        768: {
+                            items: 1
+                        },
+                        992: {
+                            items: 1
+                        }
+                    }
+                });
+            }
+            slider_carouselInit();
+
+        </script>
+
+
+
+    </ui:define>
+
+</ui:composition>

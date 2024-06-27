@@ -1,0 +1,302 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                template="/layout/default.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+
+
+    <ui:define name="content">
+
+        <f:metadata> 
+            <!--using authenticationManagedBean user Id to set the id of my personManagedBean-->
+            <!-- since same session authenticationManagedBean will not run, setPersonIdAuth will take in the id from authBean-->
+            <f:event type="preRenderView" listener="#{personManagedBean.setPersonIdAuth}" />
+            <!-- based off person id-->
+            <f:event type="preRenderView" listener="#{personManagedBean.loadSelectedPerson()}"/> 
+        </f:metadata> 
+
+
+        <html xmlns="http://www.w3.org/1999/xhtml"
+              xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+              xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+            <!--            <head>-->
+
+            <title>carousel slider</title>
+
+            <!-- favicon -->
+            <!-- <link href="img/favicon.png" type="image/png" rel="icon"> -->
+
+            <!-- all css here -->
+            <!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet" type="text/css" /> -->
+            <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" type="text/css" />
+            <link href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" rel="stylesheet" type="text/css" />
+            <link href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" rel="stylesheet" type="text/css" />
+            <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+
+
+            <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+
+            <!-- <link href="css/style.css" rel="stylesheet" type="text/css" /> -->
+
+            <style>
+
+
+                section {
+                    margin: 0;
+                    padding: 0;
+                }
+
+                body {
+                    line-height: 26px;
+                    background: #ffffff;
+                    color: #ffffff;
+                    font-family: bromega-Regular;
+                }
+
+                ol,
+                ul {
+                    list-style: none;
+                }
+
+                a:hover {
+                    text-decoration: none;
+                }
+
+                button:focus, input:focus, textarea:focus {
+                    outline: 0;
+                }
+
+                .card_wrapper {
+                    background: linear-gradient(180deg, #23273A 46.35%, #FA4A6F 119.01%);
+                    background: white;
+                    width: 100vw;
+                    height: 100vh;
+                    display: flex;
+                    align-items: center;
+                }
+
+                .head_text {
+                    font-family: bromega-Bold;
+                    font-size: 45px;
+                }
+
+                .head_para {
+                    margin-top: 15px;
+                }
+
+                .card_box {
+                    background: #ffffff;
+                    /*                        background-color: darkcyan;*/
+                    border-radius: 70px;
+                    margin-top: 10px;
+                    transition: .3s;
+                    margin-bottom: 0px;
+                    border: 2px solid black; /* Set border color to black */
+                    height:450px;
+                }
+
+                .card_box:hover {
+                    box-shadow: 0px 4px 0px rgba(0, 0, 0, 0.05);
+                    transform: translateY(-10px);
+                }
+
+                .card_text {
+                    padding: 30px 20px 25px 20px;
+                }
+
+                .card_text h4 {
+                    font-size: 18px;
+                    font-family: bromega-Bold;
+                    color: #FA4A6F;
+                    margin-top: 20px;
+                }
+
+                .card_text p {
+                    font-size: 14px;
+                    font-family: bromega-Bold;
+                    line-height: 150%;
+                    margin-top: 10px;
+                    color: #23273A;
+                }
+
+                .slider_carousel .owl-nav {
+                    position: absolute;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    width: 100%;
+                    display: flex;
+                    justify-content: space-between; /* Add this to position arrows at the sides */
+                }
+
+                .slider_carousel .owl-next,
+                .slider_carousel .owl-prev {
+                    width: 40px; /* Adjust width as needed */
+                    height: 40px; /* Adjust height as needed */
+                    background: #ffffff;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 50%;
+                }
+
+                .slider_carousel .owl-next {
+                    right: 0;
+                    color: #000000 !important; /* Set color to black */
+                    width: 100px; /* Adjust width as needed */
+                    height: 100px; /* Adjust height as needed */
+                }
+
+                .slider_carousel .owl-prev {
+                    left: 0;
+                    color: #000000 !important; /* Set color to black */
+                    width: 100px; /* Adjust width as needed */
+                    height: 100px; /* Adjust height as needed */
+                }
+
+                body {
+                    overflow-x: hidden; /* Hide horizontal scrollbar */
+
+                }
+
+                .my-messages {
+                    position: fixed;
+                    top: 10%;
+                    right: 8%; /* Adjust this value as needed to center horizontally */
+                    transform: translateX(50%);
+                    z-index: 1000;
+                    background-color: grey;
+                    border: 1px solid black;
+                    padding: 10px;
+                    border-radius: 10px;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                    max-width: 300px;
+                    font-size: 1rem;
+                    color: white;
+                    -webkit-animation: flashMessage 7s ease-out forwards; /* Webkit prefix */
+                }
+
+
+
+                @-webkit-keyframes flashMessage {
+                    0%, 100% {
+                        opacity: 1;
+                    }
+                    50% {
+                        opacity: 0;
+                    }
+                    100% {
+                        opacity: 0;
+                        display: none; /* Hide the message completely after the animation */
+                    }
+                }
+
+            </style>
+
+            <!--            </head>-->
+
+            <body>
+
+                <h:messages globalOnly="true" styleClass = "my-messages" />
+                <br/><br/><br/><br/>
+
+                <h:form id="form"> 
+
+
+                    <h2 style="text-align: center;">All Available Events (Before Deadline)</h2>
+
+                    <!-- Search box -->
+
+                    <div style="text-align: right;"> 
+                        <h:outputText style = "font-size:15px;" value="Search by Title: " /> 
+                        <h:inputText  value="#{eventManagedBean.searchString}" /> 
+                        <h:commandButton value="Search" action="#{eventManagedBean.searchEventByTitle2(personManagedBean.personId)}" styleClass="btn btn-primary" style="font-size: 15px; padding: 5px; background-color: #152238; color:white">
+                            <i class="fa fa-search" style="font-size: 15px; margin-right: 8px; color: black; background-color: white"></i>
+                        </h:commandButton>
+                    </div> <br/><br/><br/>
+
+                    <!-- card area start -->
+                    <div class="card_wrapper" style="height: 55%;">
+                        <div class="container" style="width: 94%;">
+                            <div class="row">
+                                <div class="col-6 text-center">
+                                </div>
+                                <div class="col-12">
+                                    <div class="owl-carousel slider_carousel">
+                                        <!-- Repeat the card box for each event -->
+                                        <ui:repeat value="#{eventManagedBean.searchEventByTitle2(personManagedBean.personId)}" var="event">
+                                            <div class="card_box">
+                                                <br />
+                                                <!-- Event Image -->
+                                                <img src="https://images.squarespace-cdn.com/content/v1/5b90da2796e76f3a1bf894f1/1566369102035-1VTT5SFHPD1V3MR0E3ZA/EVENT_Ticker.gif"
+                                                     style="border-radius: 50%; width: 200px; height: 190px; display: block; margin: 0 auto;"
+                                                     alt="Event Image" />
+
+
+
+                                                <!-- Event Details -->
+                                                <div class="card_text" style="text-align: center;margin-top: -40px;">
+                                                    <h4>Title: #{event.title}</h4>
+                                                    <p>Description: #{event.description}</p>
+                                                    <p>Date: #{event.date}</p>
+                                                    <p>Deadline: #{event.deadline}</p>
+                                                    <h:commandButton value="Register" styleClass="btn btn-primary" style="font-size: 15px; padding: 5px; color:white;background-color: #152238; margin-top: 10px;"
+                                                                     actionListener="#{eventManagedBean.registerForEvent(event.id,personManagedBean.personId)}" />
+                                                </div>
+                                            </div>
+                                        </ui:repeat>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </h:form> 
+
+
+                <!-- all js here -->
+
+                <script>
+                    function slider_carouselInit() {
+                        $('.owl-carousel.slider_carousel').owlCarousel({
+                            dots: false,
+                            loop: true,
+                            margin: 30,
+                            stagePadding: 2,
+                            autoplay: false,
+                            nav: true,
+                            //                    navText: ["<i class='fas fa-chevron-left'></i>", "<i class='fas fa-chevron-right'></i>"], // Custom arrow icons using Font Awesome
+                            navText: ["&#9668;", "&#9658;"], // Unicode for left and right arrows
+
+
+                            autoplayTimeout: 1500,
+                            autoplayHoverPause: true,
+                            responsive: {
+                                0: {
+                                    items: 1
+                                },
+                                768: {
+                                    items: 1
+                                },
+                                992: {
+                                    items: 3
+                                }
+                            }
+                        });
+                    }
+                    slider_carouselInit();
+
+                </script>
+            </body>
+
+        </html>
+    </ui:define>
+
+
+</ui:composition>

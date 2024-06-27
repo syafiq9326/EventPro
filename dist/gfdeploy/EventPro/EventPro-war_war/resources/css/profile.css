@@ -1,0 +1,57 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Feb 27, 2024, 8:07:45 PM
+    Author     : Syafiq
+*/
+
+/* styles.css */
+
+/* Styles for the overall layout */
+.card {
+    width: 300px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+/* Styles for the profile image */
+.card .ui-panelgrid-facets img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin: 0 auto;
+    display: block;
+}
+
+/* Styles for the panel grid */
+.card .ui-panelgrid td {
+    padding: 5px;
+}
+
+/* Styles for the buttons */
+.card .ui-button {
+    margin-top: 10px;
+    width: 100%;
+}
+
+/* Styles for the logout button */
+.ui-button-logout {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.ui-button-logout:hover {
+    background-color: #c82333;
+}
+
+/* Additional styles as needed */

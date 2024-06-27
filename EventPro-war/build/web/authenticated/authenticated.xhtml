@@ -1,0 +1,125 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                template="/layout/default2.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="title">
+        User Page Once Logged In
+    </ui:define>
+
+
+
+
+    <ui:define name="content" >
+        <style>
+            .panel-grid {
+                display: inline-block;
+                text-align: left;
+            }
+
+            .panel-item {
+                display: flex;
+                margin-bottom: 10px;
+            }
+
+            .label {
+                font-weight: bold;
+                margin-right: 5px;
+            }
+
+            .value {
+                display: inline-block;
+            }
+
+        </style>
+
+
+
+
+        <f:metadata> 
+            <!--using authenticationManagedBean user Id to set the id of my personManagedBean-->
+            <!-- since same session authenticationManagedBean will not run, setPersonIdAuth will take in the id from authBean-->
+            <f:event type="preRenderView" listener="#{personManagedBean.setPersonIdAuth}" />
+            <!-- based off person id-->
+            <f:event type="preRenderView" listener="#{personManagedBean.loadSelectedPerson()}"/> 
+
+        </f:metadata> 
+
+        <!--background-color: #f2f2f2;-->
+        <div class="card" style="text-align: center;  height: 750px;">
+
+            <br/>
+            <h2 style="margin-top:0">Profile</h2>
+            <!--
+                        <p:graphicImage value="https://media.licdn.com/dms/image/D5603AQGuJzOhd0aCHQ/profile-displayphoto-shrink_200_200/0/1706714448089?e=2147483647&amp;v=beta&amp;t=337zkln6ayp_ADb_hgPxJn2nKuNaQHy-oC-qhSA-z6I" 
+                                        style="border-radius: 50%; width: 150px; height: 150px; display: block; margin: 0 auto;"/>-->
+
+
+            <!-- if photo link empty display alternative-->
+            <!--            https://www.careerguide.com/career/wp-content/uploads/2022/04/ezgif.com-gif-maker-2.gif-->
+            <!--            https://static.vecteezy.com/system/resources/thumbnails/002/318/271/small/user-profile-icon-free-vector.jpg-->
+
+            <img src="#{empty personManagedBean.photoLink ? 'https://static.vecteezy.com/system/resources/thumbnails/002/318/271/small/user-profile-icon-free-vector.jpg' : personManagedBean.photoLink}"
+                 style="border-radius: 50%; width: 150px; height: 150px; display: block; margin: 0 auto;" />
+
+
+
+            <br/> <br/>
+
+
+
+
+            <div class="panel-grid" columns="2" >
+                <div class="panel-item">
+
+                    <h:outputText value="Name:"/>
+                    <h:outputText value="#{personManagedBean.name}"/>
+                </div>
+
+                <div class="panel-item">
+                    <h:outputText value="Username:"/>
+                    <h:outputText value="#{personManagedBean.username}"/>
+                </div>
+
+                <div class="panel-item">
+                    <h:outputText value="Email:"/>
+                    <h:outputText value="#{personManagedBean.email}"/>
+                </div>
+
+                <div class="panel-item">
+                    <h:outputText value="Phone Number:"/>
+                    <h:outputText value="#{personManagedBean.phoneNum}"/>
+                </div>
+
+
+            </div>
+
+
+
+            <br/><br/>
+
+            <h:commandButton value="Edit" styleClass="btn btn-primary" style="font-size: 15px; padding: 5px;"
+                             onclick="window.location.href = '#{request.contextPath}/authenticated/editperson.xhtml';">
+                <i icon="fa fa-fw fa-edit" style="font-size: 20px; margin-right: 8px; color:white"></i>
+            </h:commandButton>
+
+
+
+
+
+
+            <br /> 
+            <h:form>
+
+            </h:form>
+
+
+        </div>
+
+    </ui:define>
+
+
+</ui:composition>
